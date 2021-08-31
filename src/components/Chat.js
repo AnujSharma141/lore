@@ -11,6 +11,7 @@ export default function Chat(props) {
     //push message
     const send = e =>{
         e.preventDefault()
+
         push(ref(database,'chat/'),
         {from:props.uid,
         to:props.active.uid,
@@ -20,18 +21,32 @@ export default function Chat(props) {
         setMessage({text: ''})
     }
 
-    //listen for messages
     let filter = []
-    if(props.data != null){
-    //set read true
+    let doubleFilter = []
+    let checker 
 
+    if(props.data != null){
     filter = Object.values(props.data).filter(item=>
         item.to == props.uid || item.to == props.active.uid
     )
+    doubleFilter = filter.filter(item=>
+        item.from == props.uid || item.from == props.active.uid
+    )
+    checker = doubleFilter[doubleFilter.length-1]
+    //last message of user[sender]
+    if(checker.from == props.uid){
+        //dk
+    }else{
+        //set read true
+        const index = Object.values(props.data).indexOf(checker)
+        const hash = Object.keys(props.data)[index] 
+        update(ref(database,'chat/' + hash),{...checker, read: 'true'})
+    }
+    console.log(checker==props.uid)
     const updated = filter.map(item=> {return(
         {...item,read: true}
     )})
-    console.log(updated)
+    
     }
     
 
@@ -46,7 +61,7 @@ export default function Chat(props) {
         </div>
         
         <div className='chat'>
-        {filter.map(item=>{
+        {doubleFilter.map(item=>{
             return(
                 <>
                 <div className={item.from == props.uid?'chat-message-to':'chat-message-from'}>
@@ -55,7 +70,8 @@ export default function Chat(props) {
                 </>
             )
         })}
-        <p className='chat-notify'>{props.active.online==='true '?'deleivered':'sent'}</p>
+        {checker.from==props.uid?
+        <p className='chat-notify'>{checker.read ==='true'?'seen':props.active.online==='true'?'delivered':'sent'}</p>:null}
         
         <form onSubmit={send} className='chat-form'>
             <hr className='chat-hr' />
