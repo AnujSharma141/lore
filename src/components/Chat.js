@@ -34,6 +34,7 @@ export default function Chat(props) {
     )
     checker = doubleFilter[doubleFilter.length-1]
     //last message of user[sender]
+    if(checker != undefined)
     if(checker.from == props.uid){
         //dk
     }else{
@@ -70,8 +71,8 @@ export default function Chat(props) {
                 </>
             )
         })}
-        {checker.from==props.uid?
-        <p className='chat-notify'>{checker.read ==='true'?'seen':props.active.online==='true'?'delivered':'sent'}</p>:null}
+        {checker != undefined ? checker.from==props.uid?
+        <p className='chat-notify'>{checker.read ==='true'?'seen':props.active.online==='true'?'delivered':'sent'}</p>:null:null}
         
         <form onSubmit={send} className='chat-form'>
             <hr className='chat-hr' />
