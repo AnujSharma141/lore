@@ -1,38 +1,275 @@
-.App {
-  text-align: center;
+body{
+  padding: 0;
+  margin: 0;
+}
+@font-face {
+  font-family: sf ui semi;
+  src: url(./assets/font/sf-ui-display-semibold-58646eddcae92.otf);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+  font-family: sf ui med;
+  src: url(./assets/font/sf-ui-display-medium-58646be638f96.otf);
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.sign{
+  background: linear-gradient( rgba(48, 48, 48, 0.384), rgba(65, 65, 65, 0.322) ),url('https://images.unsplash.com/photo-1620204082158-ed7780a38d4c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2034&q=80') center;
   display: flex;
+  height: 100%;
   flex-direction: column;
+  width: 100vw;
+  align-items: center;
+}
+
+
+.sign-subtitle{
+  margin: 0;
+  color: rgb(145, 145, 145);
+  
+  font-family: sf ui med;
+  margin-top:0vw;
+  font-size: 0.96vw;
+}
+
+.sign-form{
+  background: white;
+  padding: 5.5vw 9vw;
+  border-radius: 3vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 8vw;
+}
+
+.sign-inp{
+  margin: 0.5vw;
+  width:17vw;
+  border: 0px solid;
+  background: #f7f7f7;
+  font-weight: 400;
+  border-radius: 6vw;
+  font-size: 0.9vw;
+  padding: 1.2vw 1.5vw;
+  font-family: sf ui med;
+  transition: 0.3s all;
+  margin: 0.5vw 0vw; 
+  outline:none;
+}
+.sign-form-title{
+  font-weight: 700;
+  font-size: 3.5vw;
+  margin: 0vw;
+  font-family: sf ui semi;
+  margin-bottom: 1vw;
+}
+.sign-button{
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin-top: 12vw;
+  border-radius: 6vw;
   color: white;
+  font-size: 1vw;
+  background: #73A7FF;
+  padding: 1.2vw 3vw;
+  text-align: center;
+  border: 0px solid;
+  cursor: pointer;
+  font-family: sf ui semi;
+  transition: 0.3s all;
+  outline: none;
 }
 
-.App-link {
-  color: #61dafb;
+.app{
+  display: flex;
+  flex-direction: column;
+  width: 100vw;font-family: sf ui med;
+  align-items: center;
+}
+.app-nav{
+  width: 80vw;
+  display: flex;
+  margin-top: 1VW;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.app-title{
+  color: gray;
+}
+.logout{
+  text-decoration: underline;
+  font-size: 0.98vw;
+  text-decoration-color: grey;
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+
+.app-section{
+  width: 70vw;
+  margin-top: 2VW;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.app-users{
+  display: flex;
+  flex-direction: column;
+}
+.app-users-title{
+  font-size: 0.95vw;
+  color: gray;
+}
+.green-dot{
+  width: 0.45vw;
+  height: 0.45vw;
+  border-radius: 3vw;
+  background: rgb(102, 187, 102);
+  margin-left: 0.7vw;
+}
+.app-user{
+  display: flex;
+  font-size: 1vw;
+  align-items: center;
+  cursor: pointer;
+}
+
+
+.app-chat{
+  display: flex;
+  width: 50vw;
+  flex-direction: column; 
+}
+
+.chat-header{
+  display: flex;
+  align-items: center;
+}
+.chat-header-name{
+  margin: 0;
+  font-size: 3vw;
+  font-family: sf ui semi;
+}
+.chat-header-mail{
+  color: gray;
+  font-size: 1vw;
+  margin: 0.5vw 0;
+}
+.chat-header-img{
+  width: 4.5vw;
+  border-radius: 3vw;
+  margin-right: 2vw;
+}
+
+.chat-header-status{
+  color: gray;
+  margin: 0;
+  margin-left: 3vw;
+}
+.chat-message-from{
+  display: flex;
+}
+.chat-from{
+  background: #ececec;
+  padding: 1vw 2vw;
+  display: flex;
+  border-radius: 6vw;
+  margin: 0.35vw 0;
+  font-size: 0.94vw;
+}
+.chat{
+  margin-top: 2vw;
+  height: 28vw;
+  overflow-y: scroll;
+}
+.chat::-webkit-scrollbar{
+  width: 0.3vw;
+  background: transparent;
+}
+.chat::-webkit-scrollbar-thumb{
+  background: #ffffff; 
+  border-radius: 4vw;
+
+}
+.chat-message-to{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.chat-to{
+  background: #73A7FF;
+  color: white;
+  border-radius: 6vw;
+  padding: 1.1vw 2vw;
+  display: flex;
+  font-size: 0.94vw;
+  margin: 0.35vw 0;
+  margin-right: 0.5vw;
+}
+.chat-notify{
+  color: gray;
+  font-size: 0.9vw;
+  width: 49vw;
+  text-align: right;
+  margin: 0;
+  margin-right: 0.6vw;
+}
+.chat-form{
+  width: 50vw;
+  margin: 0;
+  position: fixed;
+  bottom: 0vw;
+  padding: 0 0 5vw 0 ;
+  z-index: 2;
+  background: white;
+}
+.chat-hr{
+  background: #d4d4d4;
+  height: 1.5px;
+  margin-top: 0;
+  border: 0px;
+  margin-bottom: 2vw;
+}
+.chat-form-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.chat-inp{
+  border: 0px solid;
+  outline: none;
+  background: transparent;
+  font-family: sf ui med;
+  font-size: 1vw;
+}
+.chat-btn{
+  font-family: sf ui semi;
+  border: 0px solid;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.1vw;
+  background: transparent;
+  color: #73A7FF;
+}
+
+.chat-empty{
+  width: 50vw;
+  height: 35vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.empty-title{
+  font-size: 3vw;
+  font-family: sf ui semi;
+  margin: 1vw;
+  color: rgb(51, 51, 51);
+}
+.empty-sub{
+  font-size: 1vw;
+  font-family: sf ui med;
+  margin: 0vw;
+  color: rgb(211, 211, 211);
 }
