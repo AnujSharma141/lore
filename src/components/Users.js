@@ -1,27 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useContacts } from '../hooks/useContacts'
 
 export default function Users(props) {
-    const list = Object.values(props.users.list)
-    const filter = list.filter(item => item.uid != props.uid)
-    const online = filter.filter(item => item.online === 'true')
-
+    const contacts = useContacts()
     return (
         <div className='app-users'>
         <div className='app-users-online'>
           <p className='app-users-title'>online</p>
-          {online.length!= 0?online.map(item=>{
-            return(
-              <p className='app-user' onClick={()=>props.pick({...props.users, active:item, status:true})}>{item.name} <div className='green-dot'></div></p>
-            )
-          }):<p>nobody</p> }
+          {contacts.online.length!= 0?contacts.online.map(item=>{
+            return <p className='app-user'>{item.name} <div className='green-dot'></div></p>
+          }):<p className='app-user'>nobody</p>}
         </div>
         <div className='app-users-all'>
-          <p className='app-users-title'>all</p>
-          {filter.map(item=>{
-            return(
-              <p className='app-user' onClick={()=>props.pick({...props.users, active:item, status:true})}>{item.name}</p>
-            )
-          })}
+          <p className='app-users-title'>contacts</p>
+          {contacts.list.map(item=>{
+            return <p className='app-user' onClick={()=>props.select(item)}>{item.name}</p> 
+          })} 
         </div>
       </div>
     )

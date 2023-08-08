@@ -1,20 +1,14 @@
 body{
   padding: 0;
   margin: 0;
-}
-@font-face {
-  font-family: sf ui semi;
-  src: url(./assets/font/sf-ui-display-semibold-58646eddcae92.otf);
+  font-family: 'Inter', sans-serif;
 }
 
-@font-face {
-  font-family: sf ui med;
-  src: url(./assets/font/sf-ui-display-medium-58646be638f96.otf);
-}
 .sign{
   background: linear-gradient( rgba(48, 48, 48, 0.384), rgba(65, 65, 65, 0.322) ),url('https://images.unsplash.com/photo-1620204082158-ed7780a38d4c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2034&q=80') center;
   display: flex;
   height: 100%;
+  justify-content: center;
   flex-direction: column;
   width: 100vw;
   align-items: center;
@@ -23,9 +17,8 @@ body{
 
 .sign-subtitle{
   margin: 0;
-  color: rgb(145, 145, 145);
-  
-  font-family: sf ui med;
+  color: rgb(107, 107, 107);
+  font-weight: 400;
   margin-top:0vw;
   font-size: 0.96vw;
 }
@@ -33,11 +26,10 @@ body{
 .sign-form{
   background: white;
   padding: 5.5vw 9vw;
-  border-radius: 3vw;
+  border-radius: 2vw;
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-top: 8vw;
 }
 
 .sign-inp{
@@ -58,8 +50,7 @@ body{
   font-weight: 700;
   font-size: 3.5vw;
   margin: 0vw;
-  font-family: sf ui semi;
-  margin-bottom: 1vw;
+  margin-bottom: 0.7vw;
 }
 .sign-button{
   display: flex;
@@ -68,21 +59,25 @@ body{
   margin-top: 12vw;
   border-radius: 6vw;
   color: white;
-  font-size: 1vw;
+  font-size: 0.9vw;
+  font-family: 'Inter';
   background: #73A7FF;
-  padding: 1.2vw 3vw;
+  padding: 1.5vw 2.4vw;
+  font-weight: 600;
   text-align: center;
   border: 0px solid;
   cursor: pointer;
-  font-family: sf ui semi;
   transition: 0.3s all;
   outline: none;
+}
+.sign-button:hover{
+  background: black;
 }
 
 .app{
   display: flex;
   flex-direction: column;
-  width: 100vw;font-family: sf ui med;
+  width: 100vw;
   align-items: center;
 }
 .app-nav{
@@ -147,13 +142,14 @@ body{
 }
 .chat-header-name{
   margin: 0;
+  margin-top: -0.5vw;
   font-size: 3vw;
-  font-family: sf ui semi;
+  font-weight: 700;
 }
 .chat-header-mail{
   color: gray;
   font-size: 1vw;
-  margin: 0.5vw 0;
+  margin: 0.25vw 0;
 }
 .chat-header-img{
   width: 4.5vw;
@@ -179,8 +175,10 @@ body{
 }
 .chat{
   margin-top: 2vw;
-  height: 28vw;
+  height: 34vw;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
 }
 .chat::-webkit-scrollbar{
   width: 0.3vw;
@@ -220,7 +218,7 @@ body{
   margin: 0;
   position: fixed;
   bottom: 0vw;
-  padding: 0 0 5vw 0 ;
+  padding: 0 0 4vw 0;
   z-index: 2;
   background: white;
 }
@@ -229,7 +227,7 @@ body{
   height: 1.5px;
   margin-top: 0;
   border: 0px;
-  margin-bottom: 2vw;
+  margin-bottom: 1.5vw;
 }
 .chat-form-div{
   display: flex;
@@ -238,19 +236,21 @@ body{
 }
 .chat-inp{
   border: 0px solid;
+  background: #d4d4d4;
   outline: none;
   background: transparent;
-  font-family: sf ui med;
   font-size: 1vw;
 }
 .chat-btn{
-  font-family: sf ui semi;
   border: 0px solid;
   outline: none;
   cursor: pointer;
   font-size: 1.1vw;
-  background: transparent;
-  color: #73A7FF;
+  background: #5191ff;
+  padding: 1vw 2vw;
+  font-weight: 500;
+  border-radius: 2vw;
+  color: #ffffff;
 }
 
 .chat-empty{
@@ -263,13 +263,17 @@ body{
 }
 .empty-title{
   font-size: 3vw;
-  font-family: sf ui semi;
   margin: 1vw;
-  color: rgb(51, 51, 51);
+  color: rgb(0, 0, 0);
 }
 .empty-sub{
   font-size: 1vw;
-  font-family: sf ui med;
   margin: 0vw;
-  color: rgb(211, 211, 211);
+  color: rgb(161, 161, 161);
+}
+
+.empty-img{
+  margin-top: 4vw;
+  margin-bottom: 2vw;
+  width: 25vw;
 }

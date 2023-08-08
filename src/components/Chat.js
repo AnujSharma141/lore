@@ -1,83 +1,43 @@
 import React, {useState, useEffect} from 'react'
 import { getDatabase, set, ref, update,onValue, push, child} from '@firebase/database'
+import Messages from './Messages'
+import { useMessages } from '../hooks/useMessages'
+import { displayMessages } from '../util/utils'
 
-export default function Chat(props) {
-    const database = getDatabase() 
-    const [message,setMessage] = useState({text:null, value:null})
+export default function Chat({active}) {
+    const [message, setMessage] = useState(null)
+
     const changeHandler = e =>{
-        setMessage({text:e.target.value})
+        setMessage(e.target.value)
     }
 
+    const messages = useMessages(active)
+    const display = displayMessages(messages)
+    
     //push message
     const send = e =>{
         e.preventDefault()
-
-        push(ref(database,'chat/'),
-        {from:props.uid,
-        to:props.active.uid,
-        message:message.text, 
-        timestamp:Date.now(),
-        read: false})
-        setMessage({text: ''})
+        messages.send(message)
+        setMessage('')
     }
-
-    let filter = []
-    let doubleFilter = []
-    let checker 
-
-    if(props.data != null){
-    filter = Object.values(props.data).filter(item=>
-        item.to == props.uid || item.to == props.active.uid
-    )
-    doubleFilter = filter.filter(item=>
-        item.from == props.uid || item.from == props.active.uid
-    )
-    checker = doubleFilter[doubleFilter.length-1]
-    //last message of user[sender]
-    if(checker != undefined)
-    if(checker.from == props.uid){
-        //dk
-    }else{
-        //set read true
-        const index = Object.values(props.data).indexOf(checker)
-        const hash = Object.keys(props.data)[index] 
-        update(ref(database,'chat/' + hash),{...checker, read: 'true'})
-    }
-    console.log(checker==props.uid)
-    const updated = filter.map(item=> {return(
-        {...item,read: true}
-    )})
-    
-    }
-    
 
     return (
         <>
         <div className='chat-header'>
-        <img className='chat-header-img' src={props.active.img} alt="" />    
+        <img className='chat-header-img' src={active.img} alt="" />    
         <div>
-        <h2 className='chat-header-name'>{props.active.name}</h2>
-        <p className='chat-header-mail'>{props.active.email}</p>
+        <h2 className='chat-header-name'>{active.name}</h2>
+        <p className='chat-header-mail'>{active.email}</p>
         </div>
         </div>
         
         <div className='chat'>
-        {doubleFilter.map(item=>{
-            return(
-                <>
-                <div className={item.from == props.uid?'chat-message-to':'chat-message-from'}>
-                <p className={item.from == props.uid?'chat-to':'chat-from'}>{item.message}</p>
-                </div>  
-                </>
-            )
-        })}
-        {checker != undefined ? checker.from==props.uid?
-        <p className='chat-notify'>{checker.read ==='true'?'seen':props.active.online==='true'?'delivered':'sent'}</p>:null:null}
+        <Messages display={display} active={active}/>
         
         <form onSubmit={send} className='chat-form'>
             <hr className='chat-hr' />
             <div className='chat-form-div'>
-            <input placeholder='type here ..' onChange={changeHandler} value={message.text} required type="text" className='chat-inp' name="" id="" />
+            <input placeholder='text message' value={message} onChange={changeHandler} required type="text" className='chat-inp' name="" id="" />                 
             <button className='chat-btn'>send</button>
             </div>
         </form>

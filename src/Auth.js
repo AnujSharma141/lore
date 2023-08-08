@@ -1,45 +1,47 @@
-import React,{useState} from 'react'
+import React,{ useState } from 'react'
 import App from './App'
 
 import './config'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth"
+import { VerifiedContext } from './core/Verified.js'
+import { UserContext } from './core/User'
 
 export default function Auth(){
-const [pass, setPass] = useState(false)
-const [data, setData] = useState({user:null, token: null, credential: null})
-const [err, setErr] = useState({status:false, message: null})
+const [verified, setVerified] = useState(false)
+const [user, setUser] = useState({data:null, token: null, credential: null})
+const [error, setError] = useState({status:false, message: null})
 
-const auth = getAuth()
-
-const popup = () => {
-//used code from firebase docs
-const provider = new GoogleAuthProvider()  
-     
-signInWithPopup(auth, provider)
-  .then((result) => {
-    const credential = GoogleAuthProvider.credentialFromResult(result)
-    const token = credential.accessToken
-    const user = result.user
-    setData({user: user, credential: credential, token: token})
-    setPass(user.emailVerified)    
-  }).catch((error) => {
-    const errorCode = error.code
-    const errorMessage = error.message
-    const email = error.email
-    const credential = GoogleAuthProvider.credentialFromError(error)
-    setErr({status: true, message: error.message})
-})
-console.log(data.user)
+const login = () => {
+  const auth = getAuth()
+  const provider = new GoogleAuthProvider()  
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result)
+      setUser({data: result.user, credential: credential, token: credential.accessToken})
+      setVerified(result.user.emailVerified)    
+    }).catch((error) => {
+      const errorCode = error.code
+      const errorMessage = error.message
+      const email = error.email
+      const credential = GoogleAuthProvider.credentialFromError(error)
+      setError({status: true, message: error.message})
+  })
 }
 return(
-    pass? <App data={data} log={setPass} /> : 
+  <>
+    <VerifiedContext.Provider value={verified}>
+    <UserContext.Provider value={user}>
+    {verified? <App log={setVerified} /> : 
     <div className='sign'>
         <div className='sign-form'>
-            <h3 className='sign-form-title' >Lore</h3>
+            <h3 className='sign-form-title'>Lore</h3>
             <p className='sign-subtitle'>a web based chat application.</p>
-            <button className='sign-button' onClick={popup}>Sign In</button>
+            <button className='sign-button' onClick={login}>Get Started</button>
         </div>
-    </div>
+    </div>}
+    </UserContext.Provider>
+    </VerifiedContext.Provider>
+    </>
 )
 }
 
